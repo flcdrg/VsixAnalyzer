@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace VsixAnalyzer
@@ -36,16 +31,42 @@ namespace VsixAnalyzer
         private static void AnalyzeSymbol(SymbolAnalysisContext context)
         {
             // TODO: Replace the following code with your own analysis, generating Diagnostic objects for any issues you find
-            var namedTypeSymbol = (INamedTypeSymbol)context.Symbol;
+            var namedTypeSymbol = (INamedTypeSymbol) context.Symbol;
+
+            if (namedTypeSymbol.TypeKind != TypeKind.Class)
+                return;
+
+            if (namedTypeSymbol.BaseType.Name != "AsyncPackage")
+                return;
+
+            // get attributes
+            var attributes = namedTypeSymbol.GetAttributes();
+
+            // [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+            bool allowsBackgroundLoadingEnabled = false;
+
+
+            foreach (var ad in attributes)
+            {
+                if (ad.AttributeClass.Name != "PackageRegistrationAttribute") continue;
+
+                var pair = ad.NamedArguments.FirstOrDefault(x => x.Key == "AllowsBackgroundLoading");
+
+                allowsBackgroundLoadingEnabled = pair.Value.Value?.ToString() == "true";
+            }
+
+            // [ProvideAutoLoad(UIContextGuids80.SolutionExists, PackageAutoLoadFlags.BackgroundLoad)]  
+
+            if (allowsBackgroundLoadingEnabled)
+                return;
 
             // Find just those named type symbols with names containing lowercase letters.
-            if (namedTypeSymbol.Name.ToCharArray().Any(char.IsLower))
-            {
-                // For all such symbols, produce a diagnostic.
-                var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+            //if (namedTypeSymbol.Name.ToCharArray().Any(char.IsLower))
 
-                context.ReportDiagnostic(diagnostic);
-            }
+            // For all such symbols, produce a diagnostic.
+            var diagnostic = Diagnostic.Create(Rule, namedTypeSymbol.Locations[0], namedTypeSymbol.Name);
+
+            context.ReportDiagnostic(diagnostic);
         }
     }
 }

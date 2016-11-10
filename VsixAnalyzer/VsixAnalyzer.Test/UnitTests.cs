@@ -4,7 +4,6 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TestHelper;
-using VsixAnalyzer;
 
 namespace VsixAnalyzer.Test
 {
@@ -14,7 +13,7 @@ namespace VsixAnalyzer.Test
 
         //No diagnostics expected to show up
         [TestMethod]
-        public void TestMethod1()
+        public void Empty()
         {
             var test = @"";
 
@@ -33,25 +32,25 @@ namespace VsixAnalyzer.Test
     using System.Threading.Tasks;
     using System.Diagnostics;
 
-    namespace ConsoleApplication1
+    namespace TestApp
     {
-        class TypeName
+        public sealed partial class TestPackage : AsyncPackage
         {   
         }
     }";
             var expected = new DiagnosticResult
             {
                 Id = "VsixAnalyzer",
-                Message = String.Format("Type name '{0}' contains lowercase letters", "TypeName"),
+                Message = String.Format(VsixAnalyzer.Resources.AnalyzerMessageFormat, "TestPackage"),
                 Severity = DiagnosticSeverity.Warning,
                 Locations =
                     new[] {
-                            new DiagnosticResultLocation("Test0.cs", 11, 15)
+                            new DiagnosticResultLocation("Test0.cs", 11, 37)
                         }
             };
 
             VerifyCSharpDiagnostic(test, expected);
-
+/*
             var fixtest = @"
     using System;
     using System.Collections.Generic;
@@ -66,7 +65,7 @@ namespace VsixAnalyzer.Test
         {   
         }
     }";
-            VerifyCSharpFix(test, fixtest);
+            VerifyCSharpFix(test, fixtest);*/
         }
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
