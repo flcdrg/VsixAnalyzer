@@ -1,0 +1,39 @@
+install:
+  - choco install gitversion.portable -pre -y
+  - ps: (new-object Net.WebClient).DownloadString("https://raw.github.com/madskristensen/ExtensionScripts/master/AppVeyor/vsix.ps1") | iex
+ 
+before_build: 
+  - nuget restore
+  - ps: gitversion /l console /output buildserver
+  - ps: .\Update-VsixVersion.ps1 -Version $env:GitVersion_AssemblySemVer
+  - ps: Write-Output "Set VsixVersion = $($env:VsixVersion)"
+
+build_script:
+  - msbuild /p:configuration=Release /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal /v:m
+  
+after_build:
+  - 7z a symbols.zip %APPVEYOR_BUILD_FOLDER%\VsixAnalyzer\VsixAnalyzer\obj\Release\*.pdb
+
+artifacts:
+  - path: '**\*.vsix'
+    name: VsixFile
+  - path: symbols.zip
+    name: Symbols
+    type: zip
+    
+deploy:
+  release: v$(GitVersion_FullSemVer)
+  description: ''
+  provider: GitHub
+  auth_token:
+    secure: AK/yvGPxuuam1cqWJIO6jiY2QP5XATL7mI/QGOlPMJ7008nNvlHu+YoxHOPBeHfZ
+  artifact: VsixFile            # upload all NuGet packages to release assets
+  draft: false
+  prerelease: false
+  force_update: true
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
+
+after_deploy:
+- ps: if ($env:GitVersion_BranchName -eq "master") { Vsix-PublishToGallery }
