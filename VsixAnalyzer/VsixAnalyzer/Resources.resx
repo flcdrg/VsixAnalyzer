@@ -117,15 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AnalyzerDescription" xml:space="preserve">
+  <data name="AllowsBackgroundLoadingAnalyzerDescription" xml:space="preserve">
     <value>Async Packages should use AllowsBackgroundLoading = true</value>
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
-  <data name="AnalyzerMessageFormat" xml:space="preserve">
+  <data name="AllowsBackgroundLoadingAnalyzerMessageFormat" xml:space="preserve">
     <value>Type name '{0}' should have [PackageRegistration(AllowsBackgroundLoading = true)]</value>
     <comment>The format-able message the diagnostic displays.</comment>
   </data>
-  <data name="AnalyzerTitle" xml:space="preserve">
+  <data name="AllowsBackgroundLoadingAnalyzerTitle" xml:space="preserve">
     <value>Use AllowsBackgroundLoading = true</value>
     <comment>The title of the diagnostic.</comment>
   </data>

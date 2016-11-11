@@ -8,7 +8,7 @@ using TestHelper;
 namespace VsixAnalyzer.Test
 {
     [TestFixture]
-    public class UnitTest : CodeFixVerifier
+    public class AllowsBackgroundLoadingAnalyzerTests : CodeFixVerifier
     {
 
         //No diagnostics expected to show up
@@ -41,7 +41,7 @@ namespace VsixAnalyzer.Test
             var expected = new DiagnosticResult
             {
                 Id = "VsixAnalyzer",
-                Message = String.Format(VsixAnalyzer.Resources.AnalyzerMessageFormat, "TestPackage"),
+                Message = String.Format(VsixAnalyzer.Resources.AllowsBackgroundLoadingAnalyzerMessageFormat, "TestPackage"),
                 Severity = DiagnosticSeverity.Warning,
                 Locations =
                     new[] {
@@ -70,12 +70,12 @@ namespace VsixAnalyzer.Test
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()
         {
-            return new VsixAnalyzerCodeFixProvider();
+            return new AllowsBackgroundLoadingCodeFixProvider();
         }
 
         protected override DiagnosticAnalyzer GetCSharpDiagnosticAnalyzer()
         {
-            return new VsixAnalyzerAnalyzer();
+            return new AllowsBackgroundLoadingAnalyzer();
         }
     }
 }

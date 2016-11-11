@@ -13,14 +13,14 @@ using Microsoft.CodeAnalysis.Simplification;
 
 namespace VsixAnalyzer
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(VsixAnalyzerCodeFixProvider)), Shared]
-    public class VsixAnalyzerCodeFixProvider : CodeFixProvider
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(AllowsBackgroundLoadingCodeFixProvider)), Shared]
+    public class AllowsBackgroundLoadingCodeFixProvider : CodeFixProvider
     {
         private const string title = "Add AllowsBackgroundLoading";
 
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(VsixAnalyzerAnalyzer.DiagnosticId); }
+            get { return ImmutableArray.Create(AllowsBackgroundLoadingAnalyzer.DiagnosticId); }
         }
 
         public sealed override FixAllProvider GetFixAllProvider()

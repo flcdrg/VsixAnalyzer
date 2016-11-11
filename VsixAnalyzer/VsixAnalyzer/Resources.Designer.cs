@@ -64,27 +64,27 @@ namespace VsixAnalyzer {
         /// <summary>
         ///   Looks up a localized string similar to Async Packages should use AllowsBackgroundLoading = true.
         /// </summary>
-        public static string AnalyzerDescription {
+        public static string AllowsBackgroundLoadingAnalyzerDescription {
             get {
-                return ResourceManager.GetString("AnalyzerDescription", resourceCulture);
+                return ResourceManager.GetString("AllowsBackgroundLoadingAnalyzerDescription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Type name &apos;{0}&apos; should have [PackageRegistration(AllowsBackgroundLoading = true)].
         /// </summary>
-        public static string AnalyzerMessageFormat {
+        public static string AllowsBackgroundLoadingAnalyzerMessageFormat {
             get {
-                return ResourceManager.GetString("AnalyzerMessageFormat", resourceCulture);
+                return ResourceManager.GetString("AllowsBackgroundLoadingAnalyzerMessageFormat", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Use AllowsBackgroundLoading = true.
         /// </summary>
-        public static string AnalyzerTitle {
+        public static string AllowsBackgroundLoadingAnalyzerTitle {
             get {
-                return ResourceManager.GetString("AnalyzerTitle", resourceCulture);
+                return ResourceManager.GetString("AllowsBackgroundLoadingAnalyzerTitle", resourceCulture);
             }
         }
     }
