@@ -1,19 +1,21 @@
 ﻿<?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>VsixAnalyzer</id>
+    <id>Vsix.Analyzers</id>
     <version>1.0.0.0</version>
-    <title>VsixAnalyzer</title>
-    <authors>david</authors>
-    <owners>david</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <title>Vsix.Analyzers</title>
+    <authors>flcdrg</authors>
+    <owners>flcdrg</owners>
+    <licenseUrl>https://raw.githubusercontent.com/flcdrg/VsixAnalyzer/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/flcdrg/VsixAnalyzer</projectUrl>
+<!--
     <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>VsixAnalyzer</description>
+    <description>Roslyn code analyzers for Visual Studio Extension projects</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright</copyright>
-    <tags>VsixAnalyzer, analyzers</tags>
+    <tags>vsix, analyzers, roslyn, extensions</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System" targetFramework="" />
     </frameworkAssemblies>

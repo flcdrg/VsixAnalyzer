@@ -1,18 +1,18 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using NUnit.Framework;
 using TestHelper;
 
 namespace VsixAnalyzer.Test
 {
-    [TestClass]
+    [TestFixture]
     public class UnitTest : CodeFixVerifier
     {
 
         //No diagnostics expected to show up
-        [TestMethod]
+        [Test]
         public void Empty()
         {
             var test = @"";
@@ -21,7 +21,7 @@ namespace VsixAnalyzer.Test
         }
 
         //Diagnostic and CodeFix both triggered and checked for
-        [TestMethod]
+        [Test]
         public void TestMethod2()
         {
             var test = @"
