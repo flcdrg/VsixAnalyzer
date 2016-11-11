@@ -1,0 +1,9 @@
+﻿using System;
+
+namespace TestApp
+{
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    public sealed partial class TestPackage : AsyncPackage
+    {   
+    }
+}

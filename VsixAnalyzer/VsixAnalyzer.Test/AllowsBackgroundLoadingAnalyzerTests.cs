@@ -2,12 +2,14 @@
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.Diagnostics;
 using System;
+using ApprovalTests.Reporters;
 using NUnit.Framework;
 using TestHelper;
 
 namespace VsixAnalyzer.Test
 {
     [TestFixture]
+    [UseReporter(typeof(DiffReporter))]
     public class AllowsBackgroundLoadingAnalyzerTests : CodeFixVerifier
     {
 
@@ -22,9 +24,9 @@ namespace VsixAnalyzer.Test
 
         //Diagnostic and CodeFix both triggered and checked for
         [Test]
-        public void TestMethod2()
+        public void AsyncPackage()
         {
-            var test = @"
+            const string test = @"
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -50,22 +52,51 @@ namespace VsixAnalyzer.Test
             };
 
             VerifyCSharpDiagnostic(test, expected);
-/*
-            var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
         }
-    }";
-            VerifyCSharpFix(test, fixtest);*/
+
+        [Test]
+        public void FixApplied_NoExitingAttribute_DoesNothing()
+        {
+            const string test = @"using System;
+
+namespace TestApp
+{
+    public sealed partial class TestPackage : AsyncPackage
+    {   
+    }
+}";
+            VerifyCSharpFix(test);
+        }
+
+
+        [Test]
+        public void FixApplied_ExitingAttributePropertyFalse_SetsTrue()
+        {
+            const string test = @"using System;
+
+namespace TestApp
+{
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = false)]
+    public sealed partial class TestPackage : AsyncPackage
+    {   
+    }
+}";
+            VerifyCSharpFix(test);
+        }
+
+        [Test]
+        public void FixApplied_NoExitingAttributeProperty_Adds()
+        {
+            const string test = @"using System;
+
+namespace TestApp
+{
+    [PackageRegistration(UseManagedResourcesOnly = true)]
+    public sealed partial class TestPackage : AsyncPackage
+    {   
+    }
+}";
+            VerifyCSharpFix(test, allowNewCompilerDiagnostics: true);
         }
 
         protected override CodeFixProvider GetCSharpCodeFixProvider()

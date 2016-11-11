@@ -1,0 +1,8 @@
+﻿using System;
+
+namespace TestApp
+{
+    public sealed partial class TestPackage : AsyncPackage
+    {   
+    }
+}
