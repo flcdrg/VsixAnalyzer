@@ -20,7 +20,7 @@ artifacts:
   - path: symbols.zip
     name: Symbols
     type: zip
-  - path: '**\*.nupkg/'
+  - path: 'VsixAnalyzer\**\*.nupkg/'
     name: NuGetPackage
     
 deploy:
