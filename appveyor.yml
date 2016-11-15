@@ -20,14 +20,21 @@ artifacts:
   - path: symbols.zip
     name: Symbols
     type: zip
+  - path: '**\*.nupkg/'
+    name: NuGetPackage
     
 deploy:
+#- provider: NuGet
+#  artifact: NuGetPackage
+#  api_key:
+#    secure: J/iszWMM73hli0+KzLlNU39Jiu4cjGKKuRJis8BErL+mNTZRQq9u/mVtij3bSJmT
+#
+- provider: GitHub
   release: v$(GitVersion_FullSemVer)
   description: ''
-  provider: GitHub
   auth_token:
     secure: AK/yvGPxuuam1cqWJIO6jiY2QP5XATL7mI/QGOlPMJ7008nNvlHu+YoxHOPBeHfZ
-  artifact: VsixFile            # upload all NuGet packages to release assets
+  artifact: VsixFile
   draft: false
   prerelease: false
   force_update: true
