@@ -1,5 +1,8 @@
 assembly-versioning-scheme: MajorMinorPatchTag
 mode: ContinuousDelivery
-branches: {}
+branches:
+  support[/-]: {}
+  master:
+    tag: pre
 ignore:
   sha: []
